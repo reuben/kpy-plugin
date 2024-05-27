@@ -34,6 +34,10 @@ kotlin {
     ).filterNotNull()
 
     sourceSets {
+        all {
+            languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
+        }
+
         val nativeMain by creating {
 
         }
@@ -65,9 +69,7 @@ kotlin {
 
             }
             val python by main.cinterops.creating {
-                if (konanTarget != hostTarget && konanTarget == KonanTarget.MINGW_X64) {
-                    defFile = project.file("src/nativeInterop/cinterop/python-github-MingwX64.def")
-                }
+
             }
 
             binaries {
@@ -137,16 +139,7 @@ with open('${cinteropDir.replace('\\', '/')}/python.def', 'w') as fp:
         body = body.replace('/', '\\')
     fp.write(body)
     print('${cinteropDir.replace('\\', '/')}/python.def\n' + body)
-
-with open('${cinteropDir.replace('\\', '/')}/python-github-MingwX64.def', 'w') as fp:
-    body = template.format(
-        INCLUDE_DIR='${project.projectDir.absolutePath}/mingw64/include/python${pyVersion}',
-        LIB_DIR='/'.join(paths['platstdlib'].split('/')[:-1]),
-        MIN_VERSION_HEX='0x${versionHex}'
-    )
-    fp.write(body)
-    print('${cinteropDir.replace('\\', '/')}/python-github-MingwX64.def\n' + body)
-        """.trim()
+    """.trim()
     )
     files(
         "${cinteropDir.replace('\\', '/')}/python.def",
@@ -155,7 +148,7 @@ with open('${cinteropDir.replace('\\', '/')}/python-github-MingwX64.def', 'w') a
     )
 }
 
-for (target in listOf("LinuxX64", "MacosX64", "MingwX64", "LinuxArm64", "MacosArm64")) {
+for (target in listOf("LinuxX64",)) {
     try {
         val interop = tasks.getByName("cinteropPython${target}") {
             dependsOn(generatePythonDef)

@@ -12,7 +12,7 @@ dependencies {
     kapt("com.google.auto.service:auto-service:1.0.1")
     implementation("com.google.auto.service:auto-service-annotations:1.0.1")
 
-    implementation("com.google.devtools.ksp:symbol-processing-api:1.7.10-1.0.6")
+    implementation("com.google.devtools.ksp:symbol-processing-api:1.9.21-1.0.16")
 }
 
 buildConfig {

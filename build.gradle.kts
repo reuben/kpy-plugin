@@ -6,10 +6,10 @@ buildscript {
 }
 
 plugins {
-    kotlin("multiplatform") version "1.7.10" apply false
-    kotlin("jvm") version "1.7.10" apply false
+    kotlin("multiplatform") version "1.9.21" apply false
+    kotlin("jvm") version "1.9.21" apply false
 
-    id("com.google.devtools.ksp") version "1.7.10-1.0.6" apply false
+    id("com.google.devtools.ksp") version "1.9.21-1.0.16" apply false
     id("com.github.gmazzo.buildconfig") version "3.0.3" apply false
 
     id("com.github.ben-manes.versions") version "0.42.0"
@@ -22,7 +22,7 @@ repositories {
 
 allprojects {
     group = "com.martmists.kpy"
-    version = "0.5.3"
+    version = "0.5.4"
 
     tasks.withType<DependencyUpdatesTask> {
         rejectVersionIf {
